@@ -19,7 +19,15 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
 require("./routes/authRoutes")(app);
+require("./routes/billingRoutes")(app);
 
 const PORT = process.env.PORT || 5000;
 
@@ -32,5 +40,15 @@ mongoose.connect(keys.mongoURI, {
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
+
+//for correct prod deployment. It will provide the functionality to identify
+// what routes are for frontend and what is the destination
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.listen(PORT, () => console.log("server started on port 5000"));
