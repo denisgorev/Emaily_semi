@@ -31,10 +31,6 @@ require("./routes/billingRoutes")(app);
 
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send({ hi: "there" });
-});
-
 mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
