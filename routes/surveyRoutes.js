@@ -16,12 +16,12 @@ module.exports = (app) => {
     res.send(surveys);
   });
 
-  app.get("/api/surveys/:surveyId/:choice", (req, res) => {
+  app.get("/api/surveys/:surveyId/response/:choice", (req, res) => {
     res.send("<h1 style='text-align: center;'>Thanks for you feedback</h1>");
   });
 
   app.post("/api/surveys/webhooks", (req, res) => {
-    const p = new Path("api/surveys/:surveyId/:choice");
+    const p = new Path("/api/surveys/:surveyId/:choice");
 
     _.chain(req.body)
       .map(({ email, url }) => {
