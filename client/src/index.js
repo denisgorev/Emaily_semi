@@ -10,6 +10,10 @@ import reduxThunk from "redux-thunk";
 import App from "../src/components/App";
 import reducers from "./reducers";
 
+//for testing from browser (replacement of postman)
+import axios from "axios";
+window.axios = axios;
+
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 ReactDOM.render(
   <Provider store={store}>
